@@ -1,4 +1,4 @@
-import express,{Router,Request, Response} from "express";
+import express,{Router, Response} from "express";
 import serverless from "serverless-http";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
