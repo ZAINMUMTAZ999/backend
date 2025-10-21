@@ -1,15 +1,15 @@
-import express,{Router, Response} from "express";
-import serverless from "serverless-http";
+import express ,{Response, Request,Router} from "express";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import serverless from "serverless-http";
 import mongoose from "mongoose";
 import { registerRouter } from "../../src/routes/registerRouter";
 import { loginRouter } from "../../src/routes/loginRouter";
 import { v2 as cloudinary } from "cloudinary";
 import { addHeroImageRouter } from "../../src/routes/addHeroImageRouter";
 
-const MONGODB_URL = process.env.MONGODB_URL as string;
+const MONGODB_URL = "mongodb+srv://mzainmumtaz99_db_user:dyt5kZSNRjq2x9Yl@cluster0.245yfua.mongodb.net";
 
 const app = express();
 app.use(express.json());
@@ -55,14 +55,17 @@ cloudinary.config({
 const router = Router();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-
-router.get("/", (_req, res: Response) => {
-  res.send("✅ Backend running successfully on Netlify!");
-});
-
 router.use("/v1", registerRouter);
 router.use("/v2", loginRouter);
 router.use("/v3", addHeroImageRouter);
 
-app.use("/", router);
+
+router.get("/data",(_req:Request,resp:Response)=>{
+    resp.status(200).json({message:"API WORKINg"})
+})
+// app.listen(8000, ()=>{
+//   // if (err) console.log("Error in server setup")
+//   console.log("Server listening on Port 8000");
+// })
+app.use("/api/",router)
 export const handler = serverless(app);

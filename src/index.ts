@@ -1,15 +1,15 @@
-import express ,{Response, Router} from "express";
+import express ,{Response} from "express";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import serverless from "serverless-http";
+// import serverless from "serverless-http";
 import mongoose from "mongoose";
 import { registerRouter } from "./routes/registerRouter";
 import { loginRouter } from "./routes/loginRouter";
 import { v2 as cloudinary } from "cloudinary";
 import { addHeroImageRouter } from "./routes/addHeroImageRouter";
 
-const MONGODB_URL = process.env.MONGODB_URL as string;
+const MONGODB_URL = "mongodb+srv://mzainmumtaz99_db_user:dyt5kZSNRjq2x9Yl@cluster0.245yfua.mongodb.net";
 
 const app = express();
 app.use(express.json());
@@ -52,16 +52,16 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-const router = Router();
+// const router = Router();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-router.use("/v1", registerRouter);
-router.use("/v2", loginRouter);
-router.use("/v3", addHeroImageRouter);
+app.use("/v1", registerRouter);
+app.use("/v2", loginRouter);
+app.use("/v3", addHeroImageRouter);
 
 
 app.get("/", (_req, res:Response) => {
   res.send("✅ Backend running successfully !");
 });
-app.use("/", router);
-export const handler = serverless(app);
+// app.use("/", router);
+// export const handler = serverless(app);
