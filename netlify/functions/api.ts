@@ -60,8 +60,8 @@ router.use("/v2", loginRouter);
 router.use("/v3", addHeroImageRouter);
 
 
-router.get("/data",(_req:Request,resp:Response)=>{
-    resp.status(200).json({message:"API WORKINg"})
+router.get("/",(_req:Request,resp:Response)=>{
+    resp.status(200).json({message:"API WORKing hotel"})
 })
 // app.listen(8000, ()=>{
 //   // if (err) console.log("Error in server setup")
